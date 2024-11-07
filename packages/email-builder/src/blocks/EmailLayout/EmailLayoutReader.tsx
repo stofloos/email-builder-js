@@ -37,6 +37,15 @@ function getBorder({ borderColor }: EmailLayoutProps) {
 
 export default function EmailLayoutReader(props: EmailLayoutProps) {
   const childrenIds = props.childrenIds ?? [];
+  if (props.isWidget) {
+    return (
+      <>
+        {childrenIds.map((childId) => (
+          <ReaderBlock key={childId} id={childId} />
+        ))}
+      </>
+    );
+  }
   return (
     <div
       style={{

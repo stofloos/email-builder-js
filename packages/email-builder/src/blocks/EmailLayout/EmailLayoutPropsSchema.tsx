@@ -29,6 +29,7 @@ export const EmailLayoutPropsSchema = z.object({
   textColor: COLOR_SCHEMA,
   fontFamily: FONT_FAMILY_SCHEMA,
   childrenIds: z.array(z.string()).optional().nullable(),
+  isWidget: z.boolean().optional().nullable(),
 });
 
 export type EmailLayoutProps = z.infer<typeof EmailLayoutPropsSchema>;

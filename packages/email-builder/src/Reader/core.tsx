@@ -21,6 +21,8 @@ import { ContainerPropsSchema } from '../blocks/Container/ContainerPropsSchema';
 import ContainerReader from '../blocks/Container/ContainerReader';
 import { EmailLayoutPropsSchema } from '../blocks/EmailLayout/EmailLayoutPropsSchema';
 import EmailLayoutReader from '../blocks/EmailLayout/EmailLayoutReader';
+import { TemplatePropsSchema } from '../blocks/Template/TemplatePropsSchema';
+import TemplateReader from '../blocks/Template/TemplateReader';
 
 const ReaderContext = createContext<TReaderDocument>({});
 
@@ -74,6 +76,10 @@ const READER_DICTIONARY = buildBlockConfigurationDictionary({
     schema: TextPropsSchema,
     Component: Text,
   },
+  Template: {
+    schema: TemplatePropsSchema,
+    Component: TemplateReader,
+  },
 });
 
 export const ReaderBlockSchema = buildBlockConfigurationSchema(READER_DICTIONARY);
@@ -84,20 +90,23 @@ export type TReaderDocument = Record<string, TReaderBlock>;
 
 const BaseReaderBlock = buildBlockComponent(READER_DICTIONARY);
 
-export type TReaderBlockProps = { id: string };
-export function ReaderBlock({ id }: TReaderBlockProps) {
+export type TReaderBlockProps = { id: string; childrenDocuments?: Record<string, TReaderDocument>; isWidget?: boolean };
+export function ReaderBlock({ id, childrenDocuments, isWidget }: TReaderBlockProps) {
   const document = useReaderDocument();
-  return <BaseReaderBlock {...document[id]} />;
+  document[id].data.isWidget = isWidget;
+  return <BaseReaderBlock {...document[id]} childrenDocuments={childrenDocuments} />;
 }
 
 export type TReaderProps = {
   document: Record<string, z.infer<typeof ReaderBlockSchema>>;
   rootBlockId: string;
+  childrenDocuments?: Record<string, TReaderDocument>;
+  isWidget?: boolean;
 };
-export default function Reader({ document, rootBlockId }: TReaderProps) {
+export default function Reader({ document, rootBlockId, childrenDocuments, isWidget }: TReaderProps) {
   return (
     <ReaderContext.Provider value={document}>
-      <ReaderBlock id={rootBlockId} />
+      <ReaderBlock id={rootBlockId} childrenDocuments={childrenDocuments} isWidget={isWidget} />
     </ReaderContext.Provider>
   );
 }

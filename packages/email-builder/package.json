@@ -1,6 +1,6 @@
 {
-  "name": "@usewaypoint/email-builder",
-  "version": "0.0.8",
+  "name": "@stofloos/email-builder",
+  "version": "1.0.0",
   "description": "React component to render email messages",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -18,7 +18,7 @@
   "scripts": {
     "build": "npx tsc"
   },
-  "author": "carlos@usewaypoint.com",
+  "author": "jim@stofloos.nl",
   "license": "MIT",
   "peerDependencies": {
     "react": "^16 || ^17 || ^18",
@@ -36,6 +36,7 @@
     "@usewaypoint/block-image": "^0.0.5",
     "@usewaypoint/block-spacer": "^0.0.3",
     "@usewaypoint/block-text": "^0.0.6",
-    "@usewaypoint/document-core": "^0.0.6"
+    "@usewaypoint/document-core": "^0.0.6",
+    "@stofloos/stofware-client": "1.0.16"
   }
 }
