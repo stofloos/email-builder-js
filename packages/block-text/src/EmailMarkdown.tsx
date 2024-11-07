@@ -49,6 +49,8 @@ const GENERIC_ALLOWED_ATTRIBUTES = ['style', 'title'];
 
 function sanitizer(html: string): string {
   return insane(html, {
+    // @ts-expect-error tel and sms are not known by insane
+    allowedSchemes: ['http', 'https', 'mailto', 'tel', 'sms'],
     allowedTags: ALLOWED_TAGS,
     allowedAttributes: {
       ...ALLOWED_TAGS.reduce<Record<string, string[]>>((res, tag) => {
@@ -85,6 +87,7 @@ ${body}</tbody>
 }
 
 function renderMarkdownString(str: string): string {
+  console.log('render!');
   const html = marked.parse(str, {
     async: false,
     breaks: true,
