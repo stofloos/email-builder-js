@@ -87,7 +87,6 @@ ${body}</tbody>
 }
 
 function renderMarkdownString(str: string): string {
-  console.log('render!');
   const html = marked.parse(str, {
     async: false,
     breaks: true,
